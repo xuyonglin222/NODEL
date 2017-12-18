@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RFID</title>
+    <style>
+        .msg{
+            width:500px;
+            height:300px;
+            border:1px solid #ccc;
+        }
+        input[type="button"]{
+            padding:5px 0px;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.2.1.js">
+    </script>
+    <script type="text/javascript" src="ajax.js"></script>
+</head>
+<body>
+<input type="text" class="testData">
+<input type="button" id="carinfo" value="main/getCarInfo">
+<input type="button" id="toll" value="/main/getToll">
+<div class="msg">
+
+</div>
+
+
+<form action="" >
+    Distance <input type="text" class="Distance" name="Distance" ><br/>
+    EndTime <input type="text" class="EndTime" name="EndTime" ><br/>
+    EndStat <input type="text" class="EndStat"  name="EndStat" ><br/>
+    StartTime <input type="text" class="StartTime" name="StartTime" ><br/>
+    StartStat <input type="text"  class="StartStat" name="StartStat" ><br/>
+    TagId<input type="text"  class="TagId" name="TagId" ><br/>
+    <input type="button" id="routeinfo" value="submit">
+</form>
+</body>
+</html>
