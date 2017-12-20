@@ -32,33 +32,40 @@ async.waterfall([
     },
     //遍历niceMovieLink得到优秀电影的信息
     function getMovieData(niceMovieLink,callback){
+        console.log(niceMovieLink)
+        var movieData=[];
+        var asyncFunc=[];
+        function getFunc(index){
+            return function(){
+           request.get(niceMovieLink[index]).end(function (err, data) {
+               if (err) throw err;
+               var $ = cheerio.load(data.text, {decodeEntities: false});
+               var item;
+               item = {
+                   name: $('#content h1 span').text(),
+                   director: $("#info  a[rel='v:directedBy']").text(),
+                   actor: $("#info  a[rel='v:starring']").text(),
+                   type: $("#info  span[property='v:genre']").text(),
+                   playTime: $("#info  span[property='v:initialReleaseDate']").text(),
+                   sumary: $("#info span[property='v:sumary']").text(),
+                   imgLink: $("#mainpic img[rel='v:image']").attr("src")
+               };
+               movieData.push(item);
+               console.log(index)
 
-        //电影信息
-        var movieData = [];
-        niceMovieLink.forEach(function (link,index) {
-            request.get(link).end(function(err,data){
-                if(err) throw err;
-                var $ = cheerio.load(data.text,{decodeEntities:false});
-                movieData.push({
-                    name:$('#content h1 span').text(),
-                    director:$("#info  a[rel='v:directedBy']").text(),
-                    actor:$("#info  a[rel='v:starring']").text(),
-                    type:$("#info  span[property='v:genre']").text(),
-                    playTime:$("#info  span[property='v:initialReleaseDate']").text(),
-                    sumary:$("#info span[property='v:sumary']").text(),
-                    imgLink:$("#mainpic img[rel='v:image']").attr("src")
-                })
-            })
-
-        })
-        console.log(movieData)
-
-        callback(null,movieData)
+           })
+       }
+        }
+            for(var i=0;i<niceMovieLink.length;i++) {
+                asyncFunc.push(getFunc(i))
+            }
+            async.series(asyncFunc);
     },
 
 //将电影图片存入images文件夹里
     function loadImg(movieData,callback) {
-    movieData.forEach(function (item,index) {
+        console.log("33")
+        movieData.forEach(function (item,index) {
         var imglink = item.imgLink;
         console.log(imglink);
     })
