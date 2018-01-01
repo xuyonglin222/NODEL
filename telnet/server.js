@@ -4,7 +4,6 @@ const net = require('net');
 // 共享状态
 let count = 0;
 let users = {};
-let telnetmsg='';
 let server = net.createServer(function (socket) {
     count++;
     let nickname;
@@ -43,18 +42,13 @@ let server = net.createServer(function (socket) {
             }
         } else {
             // 验证用户为已注册，则输入数据(chunk)为聊天信息
-            if(chunk!='\r\n'){
-                console.log("s"+chunk);
-                telnetmsg +=chunk;
-            }else{
+
                 for (var i in users) {
                     if (i != nickname) {
-                        console.log('\033[96m > ' + nickname + ':\033[39m ' + telnetmsg + '\n')
-                        broadcast('\033[96m > ' + nickname + ':\033[39m ' + telnetmsg + '\n', true);
+                        console.log('\033[96m > ' + nickname + ':\033[39m ' + chunk + '\n')
+                        broadcast('\033[96m > ' + nickname + ':\033[39m ' + chunk+'\n', true);
                     }
                 }
-            }
-
         }
     });
 
