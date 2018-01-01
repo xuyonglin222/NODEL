@@ -41,14 +41,8 @@ let server = net.createServer(function (socket) {
                 broadcast('\033[90m > ' + nickname + ' joined the room\033[39m\n');
             }
         } else {
-            // 验证用户为已注册，则输入数据(chunk)为聊天信息
-
-                for (var i in users) {
-                    if (i != nickname) {
-                        console.log('\033[96m > ' + nickname + ':\033[39m ' + chunk + '\n')
-                        broadcast('\033[96m > ' + nickname + ':\033[39m ' + chunk+'\n', true);
-                    }
-                }
+            // 验证用户为已注册，则输入数据(chunk)为聊天信息 把聊天信息光广播到其他用户里
+           broadcast('\033[96m > ' + nickname + ':\033[39m ' + chunk+'\n', true);
         }
     });
 
