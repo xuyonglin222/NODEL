@@ -105,7 +105,6 @@ app.post('/main/postRouteInfo', function(req,res){
     var id=req.body.CarTagId;
     var isStart=req.body.IsStart;
     var dataIn=[];
-    var i=0;
     var datas =JSON.parse(data.Data);
     for(key in datas){
         dataIn.push(datas[key])

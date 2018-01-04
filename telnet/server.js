@@ -11,7 +11,7 @@ let server = net.createServer(function (socket) {
     // 页面tip
     socket.write(
         '\n > welcome to \033[92mgroup-chat\033[39m!'
-        + '\n > ' + count + ' other people are connected at this time.'
+        + '\n > ' + count + ' people are connected at this time.'
         + '\n > please write your name and press enter: '
     );
 
@@ -64,10 +64,10 @@ server.listen(8080, function () {
 });
 
 
-server.on('error', (e) => {
+server.on('error',function(e){
     if (e.code === 'EADDRINUSE') {
         console.log('Address in use, retrying...');
-        setTimeout(() => {
+        setTimeout(function()  {
             server.close();
             server.listen(8080);
         }, 1000);

@@ -1,0 +1,7 @@
+{
+  "name": "album_manager",
+  "version": "1.0.0",
+  "main": "./lib/albums.js",
+  "private": true,
+  "dependencies": {}
+}
